@@ -22,7 +22,7 @@ function TaskCard({ task }) {
             </header>
             <p className="text-slate-300">{task.description}</p>
             <p>
-                {days(task.date).utc().format('DD/MM/YYYY')}
+                Fecha ingreso: {days(task.date).utc().format('DD/MM/YYYY')}
             </p>
 
         </div>

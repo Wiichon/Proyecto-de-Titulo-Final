@@ -13,6 +13,7 @@ import {TaskProvider} from "./context/TasksContext";
 import { EvidencesProvider } from "./context/EvidencesContext";
 import NavBar from "./components/NavBar";
 import ChartsPage from "./pages/ChartsPage";
+import TablePage from "./pages/TablePage";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             </Route>
 
             <Route element={<ProtectedRoute/>}>
+              <Route path="/table" element={<TablePage/>}/>
               <Route path="/charts" element={<ChartsPage/>}/>
               <Route path="/evidence" element={<EvidencePage/>}/>
               <Route path="/add-evidence" element={<EvidenceFormPage/>}/>

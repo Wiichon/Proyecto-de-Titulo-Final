@@ -60,15 +60,16 @@ function EvidenceFormPage() {
 
   return (
     <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
+      <h1 className='text-2xl font-bold p-2'>Formulario de evidencias</h1>
       <form onSubmit={onSubmit}>
-        <label htmlFor="title">title</label>
+        <label htmlFor="title">Titulo</label>
         <input 
         type="text" placeholder="Title" 
         {...register("title")}
         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2 '
         autoFocus
         />
-        <label htmlFor="description">description</label>
+        <label htmlFor="description">Descripcion</label>
         <textarea rows="3" placeholder="Description"
         {...register("description")}
         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'   
@@ -86,18 +87,19 @@ function EvidenceFormPage() {
         <input  
           className='w-full bg-zinc-700 px-4 py-2 rounded-md my-2'
           type="number"
-          placeholder='Quantity'
+          placeholder='Cantidad'
           {...register("quantity", { valueAsNumber: true })}
         />
         <label htmlFor="date">Fecha</label>
         <input type="date" className='text-black'{...register("date")} />
         <button className='bg-indigo-500 px-3 py-2 rounded-sm '>Save</button>
-
+        <br />
         <label htmlFor="task">Seleccionar caso:</label>
-        <select id="task" {...register("taskId")}>
-          <option value="">-- Seleccionar caso --</option>
+        
+        <select  className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2' name="task" id="task" {...register("taskId")}>
+          <option className='text-black' value="">-- Seleccionar caso --</option>
           {tasks.map((task) => (
-            <option key={task._id} value={task._id}>{task.title}</option>
+            <option  key={task._id} value={task._id}>{task.title}</option>
           ))}
         </select>
         <button className='bg-indigo-500 px-3 py-2 rounded-sm '>Save</button>

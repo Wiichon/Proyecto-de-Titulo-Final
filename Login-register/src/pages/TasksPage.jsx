@@ -22,7 +22,8 @@ function TasksPage() {
         task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         task.description.toLowerCase().includes(searchTerm.toLowerCase())||
         task.region.toString().toLowerCase().includes(searchTerm.toLowerCase())||
-        task.status.toLowerCase().includes(searchTerm.toLowerCase())
+        task.status.toLowerCase().includes(searchTerm.toLowerCase())||
+        task.comuna.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredTasks(filtered);
     }
@@ -37,7 +38,7 @@ function TasksPage() {
     // Cartas de casos
     <div>
       <Changer/>
-      <h1 className="text-2xl font-bold mb-4">Casos</h1>
+      <h1 className="text-2xl font-bold mb-4 py-3">Casos</h1>
       <input
         className="text-black w-full p-2 border border-gray-300 rounded-md"
         type="text"
@@ -45,7 +46,7 @@ function TasksPage() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {filteredTasks.map((task) => (
           <TaskCard key={task._id} task={task} />
         ))}

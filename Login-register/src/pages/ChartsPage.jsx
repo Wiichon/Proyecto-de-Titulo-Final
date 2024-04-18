@@ -11,10 +11,12 @@ function ChartsPage() {
   })
 
   return (
-    <div className=''>
+    <div >
       <Changer/>
       <div ref={componentRef}  >
+        <h1 className='justify-center flex items-center'>Evidencias</h1>
          <ChartsForEvidences/> 
+         <h1 className='justify-center flex items-center'>Casos</h1>
          <ChartsForCases/>
       </div>
       <button onClick={handlePrint}>Exportar a PDF</button>     

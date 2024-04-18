@@ -15,11 +15,19 @@ const taskSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
+      comuna: {
+        type: String,
+        required: true,
+      },
       status: {
         type: String,
         required: true,
       },
       date: {
+        type: Date,
+        default: Date.now,
+      },
+      datefinal: {
         type: Date,
         default: Date.now,
       },

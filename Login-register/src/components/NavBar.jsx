@@ -18,10 +18,10 @@ function NavBar() {
                         Bienvenido {user.username}
                     </li>
                     <li>
-                        <Link to="/add-task" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Add task</Link>
+                        <Link to="/add-task" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Añadir casos</Link>
                     </li>
                     <li>
-                        <Link to="/add-evidence" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Add evidence</Link>
+                        <Link to="/add-evidence" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Añadir evidencias</Link>
                     </li>
                     <li>
                         <Link to="/" onClick={()=>{
