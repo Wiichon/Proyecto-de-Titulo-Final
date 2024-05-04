@@ -1,77 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { useTasks } from '../context/TasksContext';
-import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
+import { useReactTable, getCoreRowModel, flexRender,getSortedRowModel,getFilteredRowModel } from '@tanstack/react-table';
+import dayjs from 'dayjs';
 import { CSVLink } from 'react-csv';
 
-function SimpleTable() {
-    const { getTasks, tasks } = useTasks(); // Obtiene las funciones y el estado del hook useTasks
+function SimpleTable({data,columns}) {
+
     const [csvData, setCsvData] = useState([]); // Estado para almacenar los datos CSV
 
-    useEffect(() => {
-        getTasks(); // Al montar el componente, obtiene las tareas
-    }, []);
 
-    useEffect(() => {
-        // Formatea los datos para CSV cuando se actualiza la lista de tareas
-        const formattedData = tasks.map(task => ({
-            ID: task._id,
-            Titulo: task.title,
-            Descripcion: task.description,
-            Estado: task.status,
-            Region: task.region,
-            Comuna: task.comuna,
-            'Fecha de Ingreso': task.date,
-            'Fecha de Cierre': task.datefinal
-        }));
-        setCsvData(formattedData);
-    }, [tasks]);
 
-    const columns = [
-        {
-            header: 'ID',
-            accessorKey: '_id',
-        },
-        {
-            header: 'Titulo',
-            accessorKey: 'title',
-        },
-        {
-            header: 'Descripcion',
-            accessorKey: 'description',
-        },
-        {
-            header: 'Estado',
-            accessorKey: 'status',
-        }, {
-            header: 'Region',
-            accessorKey: 'region',
-        },
-        {
-            header: 'Comuna',
-            accessorKey: 'comuna',
-        },
-        {
-            header: 'Fecha de Ingreso',
-            accessorKey: 'date',
-        },
-        {
-            header: 'Fecha de Cierre',
-            accessorKey: 'datefinal',
-        }
-    ];
 
-    const table = useReactTable({ data: tasks, columns: columns, getCoreRowModel: getCoreRowModel() });
+    
+
+    const [sorting,setSorting]=useState([])
+    const [filtering,setFiltering]=useState("")
+
+    const table = useReactTable({ 
+        data, 
+        columns, 
+        getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel:getSortedRowModel(),
+        getFilteredRowModel:getFilteredRowModel(), 
+        state: {
+            sorting,
+            globalFilter:filtering,
+        },
+        onSortingChange:setSorting,
+        onGlobalFilterChange:setFiltering,
+        
+    });
 
     return (
-        <div>
-            <CSVLink data={csvData} filename={'tasks.csv'} className="btn btn-primary">Exportar CSV</CSVLink>
-            <table>
-                <thead>
+        <div >
+            <input 
+            type="text"
+            placeholder='Buscar...' 
+            className='text-black ' 
+            value={filtering}
+            onChange={(e)=>setFiltering(e.target.value)}
+            />
+            <table className='p-7 border-collapse border-spacing-1 border 1 solid bg-gray-600   '>
+                <thead className='bg-gray-500 items-start'>
                     {table.getHeaderGroups().map(headerGroup => (
-                        <tr key={headerGroup.id}>
+                        <tr className='even:bg-gray-400 text-left' key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
-                                <th key={header.id}>
-                                    {header.column.columnDef.header}
+                                <th className='text-left p-16' key={header.id}
+                                onClick={header.column.getToggleSortingHandler()}>
+                                    {header.isPlaceholder ? null :(
+                                        <div>
+                                            {[flexRender(header.column.columnDef.header,header.getContext())]}
+                                            {{asc:'⬆️',desc: '⬇️'}[header.column.getIsSorted()??null]}
+                                        </div>
+                                    )} 
+                                    
                                 </th>
                             ))}
                         </tr>
@@ -80,10 +62,10 @@ function SimpleTable() {
                 <tbody>
                     {
                         table.getRowModel().rows.map(row => (
-                            <tr key={row.id}>
+                            <tr className='even:bg-gray-700' key={row.id}>
                                 {
                                     row.getVisibleCells().map(cell => (
-                                        <td key={cell.id}>
+                                        <td className='text-left' key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
                                     ))
@@ -92,8 +74,17 @@ function SimpleTable() {
                         ))
                     }
                 </tbody>
-                <tfoot></tfoot>
+                <tfoot>
+                    
+                </tfoot>
             </table>
+            
+            <button onClick={() => table.setPageIndex(0)}>Primer pagina</button>
+            <button onClick={() => table.previousPage}>Pagina Anterior</button>
+            <button onClick={() => table.nextPage()}>Pagina Siguiente</button>
+            <button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Ultima pagina</button>
+
+            <CSVLink data={csvData} filename={'tasks.csv'} className="btn btn-primary mt-4 bg-blue-600 rounded">Exportar CSV</CSVLink>
         </div>
     );
 }
