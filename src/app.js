@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import tasksRoutes from "./routes/tasks.routes.js"
 import authRoutes from "./routes/auth.routes.js";
 import evidenceRoutes from "./routes/evidence.routes.js";
+import imagesRoutes from "./routes/images.routes.js";
 import cookieParser from 'cookie-parser';
 
 import cors from 'cors'
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/api',authRoutes);
 app.use('/api',tasksRoutes);
 app.use('/api',evidenceRoutes);
+app.use('/api',imagesRoutes);
 
 
 
