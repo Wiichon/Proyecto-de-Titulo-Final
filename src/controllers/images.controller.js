@@ -4,13 +4,14 @@ import Image from "../models/images.model.js";
 
 export const uploadImages = async (req, res) => {
     try {
+        const { evidenceId, date } = req.body; // Obtener evidenceId y date del cuerpo de la solicitud
         const imageUrls = req.files.map(file => file.path); // Obtener las rutas de las imágenes cargadas
-        // Otras operaciones necesarias, como validación de datos, etc.
-
         // Crear un nuevo documento de imagen con las rutas de los archivos
         const newImage = new Image({
             imageUrls: imageUrls,
-            // Otras propiedades del documento de imagen, si las hay
+            evidenceId: evidenceId,
+            date: date
+            // Otras propiedades del documento de imagen, si se necesitan
         });
 
         // Guardar el nuevo documento de imagen en la base de datos
