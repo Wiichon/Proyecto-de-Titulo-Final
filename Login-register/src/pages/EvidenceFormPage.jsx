@@ -9,7 +9,7 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 function EvidenceFormPage() {
-  const{register,handleSubmit,setValue}=useForm();
+  const{register,handleSubmit,setValue,formState: { errors }}=useForm();
   const {createEvidence,updateEvidence,getEvidence} = useEvidences();
   const navigate = useNavigate();
   const params = useParams();
@@ -63,12 +63,13 @@ function EvidenceFormPage() {
       <h1 className='text-2xl font-bold p-2'>Formulario de evidencias</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="title">Titulo</label>
-        <input 
-        type="text" placeholder="Title" 
-        {...register("title")}
-        className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2 '
-        autoFocus
+        <input
+          type="text" placeholder="Title"
+          {...register("title", { required: true })} // Añadida validación
+          className={`w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2 ${errors.title ? 'border-red-500' : ''}`} // Añadido estilo para indicar error
+          autoFocus
         />
+        {errors.title && <p className="text-red-500">Este campo es obligatorio</p>}
         <label htmlFor="description">Descripcion</label>
         <textarea rows="3" placeholder="Description"
         {...register("description")}
@@ -91,8 +92,12 @@ function EvidenceFormPage() {
           {...register("quantity", { valueAsNumber: true })}
         />
         <label htmlFor="date">Fecha</label>
-        <input type="date" className='text-black'{...register("date")} />
-        <button className='bg-indigo-500 px-3 py-2 rounded-sm '>Save</button>
+        <input
+          type="date"
+          className={`w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2 ${errors.date ? 'border-red-500' : ''}`}
+          {...register("date", { required: true })}
+        />
+        {errors.date && <p className="text-red-500">Este campo es obligatorio</p>}
         <br />
         <label htmlFor="task">Seleccionar caso:</label>
         

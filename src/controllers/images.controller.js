@@ -5,8 +5,9 @@ import Image from "../models/images.model.js";
 export const uploadImages = async (req, res) => {
     try {
         const { evidenceId, date } = req.body; // Obtener evidenceId y date del cuerpo de la solicitud
-        const imageUrls = req.files.map(file => file.path); // Obtener las rutas de las imágenes cargadas
+        const imageUrls = req.files.map(file => file.path.replace(/\\/g, '/')); // Obtener las rutas de las imágenes cargadas y reemplazar barras invertidas por barras inclinadas
         // Crear un nuevo documento de imagen con las rutas de los archivos
+
         const newImage = new Image({
             imageUrls: imageUrls,
             evidenceId: evidenceId,
@@ -48,3 +49,14 @@ export const getImage = async (req, res) => {
         res.status(500).send('Error al obtener la imagen.');
     }
 };
+
+// Eliminar una imagen
+export const deleteImage = async (req, res) => {
+    try {
+        const image = await Image.findByIdAndDelete(req.params.id)
+        if (!image) return res.status(404).json({ message: 'Imagen no encontrada' })
+        return res.sendStatus(204);
+    } catch (error) {
+        return res.status(404).json({ message: 'Imagen no encontrada' })
+    }
+}

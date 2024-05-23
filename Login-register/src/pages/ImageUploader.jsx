@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useEvidences } from '../context/EvidencesContext';
 
 function ImageUploader() {
     const { getEvidences, evidences } = useEvidences();
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getEvidences();
@@ -49,6 +51,7 @@ function ImageUploader() {
             console.error('Error uploading images:', error);
             // Aquí podrías manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         }
+        navigate('/evidence');
     };
 
     const handleRemoveImage = (index) => {

@@ -9,10 +9,11 @@ import EvidencePage from './pages/EvidencePage'
 import EvidenceFormPage from "./pages/EvidenceFormPage";
 import ProtectedRoute from "./ProtectedRoute";
 import ImageUploader from "./pages/ImageUploader";
+import EvidenceGallery from "./pages/EvidenceGallery";
 import {AuthProvider} from "./context/AuthContext";
 import {TaskProvider} from "./context/TasksContext";
 import { EvidencesProvider } from "./context/EvidencesContext";
-import { ImagesProvider } from "./context/ImagesContext";
+
 import NavBar from "./components/NavBar";
 import ChartsPage from "./pages/ChartsPage";
 import TablePage from "./pages/TablePage";
@@ -24,6 +25,10 @@ function App() {
       <TaskProvider>
         <BrowserRouter>
           <EvidencesProvider>
+            <Routes>
+              
+            </Routes>
+
               <main className="container mx-auto px-10">
                 <NavBar />
                 <Routes>
@@ -45,13 +50,18 @@ function App() {
                     <Route path="/evidence" element={<EvidencePage />} />
                     <Route path="/add-evidence" element={<EvidenceFormPage />} />
                     <Route path="/evidence/:id" element={<EvidenceFormPage />} />
+                    
                   </Route>
                   <Route element={<ProtectedRoute />}>
-                    <Route path="/iploader" element={<ImageUploader />} />
+                    
+                    <Route path="/gallery" element={<EvidenceGallery />}/>
+                    <Route path="/uploader" element={<ImageUploader />} />
+                    
                   </Route>
 
                 </Routes>
               </main>
+
           </EvidencesProvider>
         </BrowserRouter>
       </TaskProvider>

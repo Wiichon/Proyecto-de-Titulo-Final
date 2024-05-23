@@ -22,6 +22,10 @@ function TaskFormPage() {
         console.log(task)
         setValue('title',task.title)
         setValue('description',task.description)
+        setValue('region',task.region)
+        setValue('comuna',task.comuna)
+        setValue('status',task.status)
+
       }
     }
     loadTask()
