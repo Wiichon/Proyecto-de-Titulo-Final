@@ -52,11 +52,20 @@ export const getImage = async (req, res) => {
 
 // Eliminar una imagen
 export const deleteImage = async (req, res) => {
+    const { id } = req.params;
+    const { imageUrl } = req.body;
+
     try {
-        const image = await Image.findByIdAndDelete(req.params.id)
-        if (!image) return res.status(404).json({ message: 'Imagen no encontrada' })
+        const image = await Image.findById(id);
+        if (!image) return res.status(404).json({ message: 'Imagen no encontrada' });
+
+        // Filtrar la URL específica
+        image.imageUrls = image.imageUrls.filter(url => url !== imageUrl);
+
+        await image.save();
+
         return res.sendStatus(204);
     } catch (error) {
-        return res.status(404).json({ message: 'Imagen no encontrada' })
+        return res.status(500).json({ message: 'Error al eliminar la imagen' });
     }
-}
+};

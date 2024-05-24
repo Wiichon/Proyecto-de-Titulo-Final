@@ -5,10 +5,10 @@ import Task from "../models/task.model.js";
 export const getEvidence = async (req, res) => {
     try {
         const evidence = await Evidence.findById(req.params.id)
-        if (!evidence) return res.status(404).json({ message: 'Evidence not found' })
+        if (!evidence) return res.status(404).json({ message: 'Evidencia no encontrada' })
         res.json(evidence)
     } catch (error) {
-        return res.sendStatus(404).json({ message: 'Evidence not found' });
+        return res.sendStatus(404).json({ message: 'Evidencia no encontrada' });
     }
 }
 
@@ -19,7 +19,7 @@ export const getEvidences = async (req, res) => {
         res.json(evidences);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Something went wrong" });
+        return res.status(500).json({ message: "Algo salio mal" });
     }
 }
 
@@ -29,7 +29,7 @@ export const createEvidence = async (req, res) => {
         const { title, description, date, origin, quantity, taskId } = req.body;
 
         if (!taskId) {
-            return res.status(400).json({ message: "A valid task ID is required to associate evidence with a task" });
+            return res.status(400).json({ message: "Un ID de caso valido es requerido para asociar una evidencia" });
         }
 
         // Crear una nueva instancia de Evidence
@@ -50,7 +50,7 @@ export const createEvidence = async (req, res) => {
         const taskToUpdate = await Task.findById(taskId);
 
         if (!taskToUpdate) {
-            return res.status(404).json({ message: "Task not found" });
+            return res.status(404).json({ message: "Caso no encontrado" });
         }
 
         // Agregar la ID de la evidencia al array de evidencias de la tarea
@@ -59,11 +59,11 @@ export const createEvidence = async (req, res) => {
         // Guardar la tarea actualizada en la base de datos
         await taskToUpdate.save();
 
-        console.log("Evidence created and associated with task:", savedEvidence);
+        console.log("Evidencia guardada y asociada con un caso:", savedEvidence);
         res.json(savedEvidence);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Something went wrong" });
+        return res.status(500).json({ message: "Algo salio mal" });
     }
 };
 
@@ -73,10 +73,10 @@ export const updateEvidence = async (req, res) => {
         const evidence = await Evidence.findByIdAndUpdate(req.params.id, req.body, {
             new: true
         })
-        if (!evidence) return res.status(404).json({ message: 'Evidence not found' })
+        if (!evidence) return res.status(404).json({ message: 'Evidencia no encontrada' })
         res.json(evidence)
     } catch (error) {
-        return res.status(404).json({ message: 'Evidence not found' })
+        return res.status(404).json({ message: 'Evidencia no encontrada' })
     }
 }
 
@@ -84,10 +84,10 @@ export const updateEvidence = async (req, res) => {
 export const deleteEvidence = async (req, res) => {
     try {
         const evidence = await Evidence.findByIdAndDelete(req.params.id)
-        if (!evidence) return res.status(404).json({ message: 'Evidence not found' })
+        if (!evidence) return res.status(404).json({ message: 'Evidencia no encontrada' })
         return res.sendStatus(204);
     } catch (error) {
-        return res.status(404).json({ message: 'Evidence not found' })
+        return res.status(404).json({ message: 'Evidencia no encontrada' })
     }
 }
 

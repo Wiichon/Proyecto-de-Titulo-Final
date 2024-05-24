@@ -38,7 +38,7 @@ function RegisterPage() {
               placeholder='Username'
             />
             {errors.username && (
-              <p className='text-red-500'>Username is required</p>
+              <p className='text-red-500'>Nombre de usuario es requerido</p>
             )}
 
             <input
@@ -48,7 +48,7 @@ function RegisterPage() {
               placeholder='Email'
             />
             {errors.email && (
-              <p className='text-red-500'>Email is required</p>
+              <p className='text-red-500'>Email requerido</p>
             )}
 
             <input
@@ -58,15 +58,15 @@ function RegisterPage() {
               placeholder='Password'
             />
             {errors.password && (
-              <p className='text-red-500'>Password is required</p>
+              <p className='text-red-500'>Contraseña requerida</p>
             )}
 
             <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none'>
-              Register
+              Registrarse
             </button>
           </form>
           <p className='mt-4 text-gray-600'>
-            Already have an account? <Link to="/login" className='text-blue-500'>Login</Link>
+            Ya tiene una cuenta? <Link to="/login" className='text-blue-500'>Login</Link>
           </p>
         </div>
       </div>

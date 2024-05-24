@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useEvidences } from '../context/EvidencesContext';
+import Changer from '../components/Changer';
 
 function ImageUploader() {
     const { getEvidences, evidences } = useEvidences();
@@ -62,6 +63,7 @@ function ImageUploader() {
 
     return (
         <div>
+            <Changer/>
             <label htmlFor="evidence">Seleccionar Evidencia:</label>
             <select className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2' name="evidence" id="evidence">
                 <option className='' value="">-- Seleccionar evidencia --</option>

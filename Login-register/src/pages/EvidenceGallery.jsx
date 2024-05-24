@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useEvidences } from '../context/EvidencesContext';
+import Changer from '../components/Changer';
 
 function EvidenceGallery() {
   const [images, setImages] = useState([]);
@@ -11,47 +12,50 @@ function EvidenceGallery() {
     getEvidences();
   }, []);
 
+  //Obtener las imagenes
+  const fetchImages = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/images');
+      setImages(response.data);
+    } catch (error) {
+      console.error('Error al obtener las imágenes:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/images');
-        setImages(response.data);
-      } catch (error) {
-        console.error('Error al obtener las imágenes:', error);
-      }
-    };
-
     fetchImages();
-
-    return () => {
-      // Limpiar cualquier suscripción o tarea asíncrona si es necesario
-    };
   }, []);
 
   const handleEvidenceChange = (evidenceId) => {
     setSelectedEvidenceId(evidenceId);
   };
 
-  const handleDeleteImage = async (imageId) => {
+  //Eliminar imagenes
+  const handleDeleteImage = async (imageId, imageUrl) => {
     try {
-      await axios.delete(`http://localhost:3000/api/images/${imageId}`);
-      // Actualizar el estado para eliminar la imagen localmente
-      setImages(images.filter(image => image._id !== imageId));
+      await axios.delete(`http://localhost:3000/api/images/${imageId}`, { data: { imageUrl } });
+      // Actualizar el estado para eliminar la URL de la imagen localmente
+      setImages(images.map(image => 
+        image._id === imageId 
+          ? { ...image, imageUrls: image.imageUrls.filter(url => url !== imageUrl) }
+          : image
+      ));
     } catch (error) {
       console.error('Error al eliminar la imagen:', error);
     }
   };
-
+//Filtrar las imagenes por evidencia
   const filteredImages = selectedEvidenceId !== null
     ? images.filter(image => image.evidenceId === selectedEvidenceId)
     : images;
 
   return (
     <div>
+      <Changer />
       <h2>Evidence Gallery</h2>
-      <div className='text-black'>
+      <div className=''>
         <p>Selecciona una evidencia:</p>
-        <select onChange={(e) => handleEvidenceChange(e.target.value)}>
+        <select className='text-black' onChange={(e) => handleEvidenceChange(e.target.value)}>
           <option value={null}>Todas las evidencias</option>
           {evidences.map(evidence => (
             <option className='text-black' key={evidence._id} value={evidence._id}>{evidence.title}</option>
@@ -61,17 +65,21 @@ function EvidenceGallery() {
       <div className="columns-3">
         {filteredImages.map((image, index) => (
           <div key={index} className="relative">
-            <img
-              className="w-80 h-80"
-              src={`http://localhost:3000/${image.imageUrls}`}
-              alt={`Evidence ${index + 1}`}
-            />
-            <button
-              className="absolute top-0 right-0 bg-red-500 text-white p-2"
-              onClick={() => handleDeleteImage(image._id)}
-            >
-              Eliminar
-            </button>
+            {image.imageUrls.map((url, idx) => (
+              <div key={idx} className="relative mb-4">
+                <img
+                  className="w-80 h-80 bg-slate-700 rounded-lg"
+                  src={`http://localhost:3000/${url}`}
+                  alt={`Evidence ${index + 1} - Image ${idx + 1}`}
+                />
+                <button
+                  className="absolute bottom-0 right-10 rounded-lg bg-red-500 text-white p-2"
+                  onClick={() => handleDeleteImage(image._id, url)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
           </div>
         ))}
       </div>

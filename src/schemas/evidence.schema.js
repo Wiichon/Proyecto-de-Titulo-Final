@@ -2,16 +2,16 @@ import { z } from "zod";
 
 export const createEvidenceSchema=z.object({
     title:z.string({
-        required_error:'Title is required'
+        required_error:'Titulo es requerido'
     }),
     description:z.string({
-        required_error:'description must be string'
+        required_error:'Descripcion debe ser string'
     }),
     origin:z.string({
-        required_error:'Origin is required'
+        required_error:'Origen es requerido'
     }),
     quantity:z.number({
-        required_error:'Quantity is required'
+        required_error:'Cantidad es requerido'
     }),
     date:z.string().datetime().optional(),
 });

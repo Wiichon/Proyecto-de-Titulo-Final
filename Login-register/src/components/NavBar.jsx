@@ -26,7 +26,7 @@ function NavBar() {
                     <li>
                         <Link to="/" onClick={()=>{
                             logout()
-                        }} className="text-white">Logout</Link>
+                        }} className="text-white">Salir</Link>
                     </li>
                 </>
             ):(
@@ -35,7 +35,7 @@ function NavBar() {
                         <Link to="/login" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Login</Link>
                     </li>
                     <li>
-                        <Link to="/register" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Register</Link>
+                        <Link to="/register" className="bg-indigo-500 px-4 py-1 rounded-sm text-white">Registro</Link>
                     </li>
                 </>
 

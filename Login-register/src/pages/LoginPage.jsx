@@ -37,7 +37,7 @@ function LoginPage() {
             className='w-full bg-gray-100 text-gray-800 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500'
             placeholder='Email'
           />
-          {errors.email && <p className='text-red-500'>Email is required</p>}
+          {errors.email && <p className='text-red-500'>Email requerido</p>}
 
           <input
             type='password'
@@ -45,7 +45,7 @@ function LoginPage() {
             className='w-full bg-gray-100 text-gray-800 px-4 py-2 rounded-md focus:outline-none focus:border-blue-500'
             placeholder='Password'
           />
-          {errors.password && <p className='text-red-500'>Password is required</p>}
+          {errors.password && <p className='text-red-500'>Contraseña requrida</p>}
 
           <button
             type='submit'
@@ -55,9 +55,9 @@ function LoginPage() {
           </button>
         </form>
         <p className='mt-4 text-blue-500'>
-        Don&apos;t have an account?{' '}
+        No tiene una cuenta?{' '}
           <Link to='/register' className='text-blue-500'>
-            Sign Up
+            Registrarse
           </Link>
         </p>
       </div>
