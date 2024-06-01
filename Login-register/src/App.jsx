@@ -21,6 +21,7 @@ import TablePage from "./pages/TablePage";
 
 function App() {
   return (  
+
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
