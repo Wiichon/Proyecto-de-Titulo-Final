@@ -36,7 +36,7 @@ function EvidencePage() {
     // Cartas de evidencias
     <div>
       <Changer />
-      <h1 className='text-2xl font-bold mb-4 text-white p-2'>Evidencias</h1>
+      <h1 className='text-2xl font-bold mb-4 text-black p-2'>Evidencias</h1>
       <input className=' text-black w-full p-2 border border-gray-300 rounded-md'
         type="text"
         placeholder="Buscar evidencias..."

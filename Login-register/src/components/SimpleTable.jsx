@@ -36,7 +36,7 @@ function SimpleTable({data,columns}) {
             <input 
             type="text"
             placeholder='Buscar...' 
-            className='text-black ' 
+            className='text-black border border-gray-300 rounded-md p-2' 
             value={filtering}
             onChange={(e)=>setFiltering(e.target.value)}
             />
@@ -79,10 +79,10 @@ function SimpleTable({data,columns}) {
                 </tfoot>
             </table>
             
-            <button onClick={() => table.setPageIndex(0)}>Primer pagina</button>
-            <button onClick={() => table.previousPage}>Pagina Anterior</button>
-            <button onClick={() => table.nextPage()}>Pagina Siguiente</button>
-            <button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Ultima pagina</button>
+            <button className='text-black' onClick={() => table.setPageIndex(0)}>Primer pagina</button>
+            <button className='text-black' onClick={() => table.previousPage}>Pagina Anterior</button>
+            <button className='text-black' onClick={() => table.nextPage()}>Pagina Siguiente</button>
+            <button className='text-black' onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Ultima pagina</button>
 
             <CSVLink data={csvData} filename={'tasks.csv'} className="btn btn-primary mt-4 bg-blue-600 rounded">Exportar CSV</CSVLink>
         </div>

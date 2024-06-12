@@ -50,11 +50,11 @@ function EvidenceGallery() {
     : images;
 
   return (
-    <div>
+    <div className=''>
       <Changer />
-      <h2>Evidence Gallery</h2>
+      <h2 className='text-2xl font-bold text-center text-black p-2'>Galeria de evidencias</h2>
       <div className=''>
-        <p>Selecciona una evidencia:</p>
+        <p className='text-black '>Selecciona una evidencia:</p>
         <select className='text-black' onChange={(e) => handleEvidenceChange(e.target.value)}>
           <option value={null}>Todas las evidencias</option>
           {evidences.map(evidence => (
@@ -62,7 +62,7 @@ function EvidenceGallery() {
           ))}
         </select>
       </div>
-      <div className="columns-3">
+      <div className="columns-3 ">
         {filteredImages.map((image, index) => (
           <div key={index} className="relative">
             {image.imageUrls.map((url, idx) => (

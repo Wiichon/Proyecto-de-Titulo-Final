@@ -14,9 +14,9 @@ function ChartsPage() {
     <div >
       <Changer/>
       <div ref={componentRef}  >
-        <h1 className='justify-center flex items-center'>Evidencias</h1>
+        <h1 className='justify-center flex items-center text-black'>Evidencias</h1>
          <ChartsForEvidences/> 
-         <h1 className='justify-center flex items-center'>Casos</h1>
+         <h1 className='justify-center flex items-center text-black'>Casos</h1>
          <ChartsForCases/>
       </div>
       <button onClick={handlePrint}>Exportar a PDF</button>     

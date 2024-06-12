@@ -38,7 +38,7 @@ function TasksPage() {
     // Cartas de casos
     <div>
       <Changer/>
-      <h1 className="text-2xl font-bold mb-4 py-3">Casos</h1>
+      <h1 className="text-2xl font-bold mb-4 py-3 text-black">Casos</h1>
       <input
         className="text-black w-full p-2 border border-gray-300 rounded-md"
         type="text"

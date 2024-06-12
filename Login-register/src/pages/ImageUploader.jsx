@@ -64,22 +64,22 @@ function ImageUploader() {
     return (
         <div>
             <Changer/>
-            <label htmlFor="evidence">Seleccionar Evidencia:</label>
+            <label htmlFor="evidence" className='text-black'>Seleccionar Evidencia:</label>
             <select className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2' name="evidence" id="evidence">
                 <option className='' value="">-- Seleccionar evidencia --</option>
                 {evidences.map((evidence) => (
                     <option key={evidence._id} value={evidence._id}>{evidence.title}</option>
                 ))}
             </select>
-            <h1>Subir Imágenes</h1>
+            <h1 className='text-black'>Subir Imágenes</h1>
             <input type="file" multiple onChange={handleFileChange} />
             <button className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded-md' onClick={handleUpload}>Subir Imágenes</button>
             {/* Mostrar las imágenes seleccionadas */}
             <div>
-                <h2>Imágenes seleccionadas:</h2>
+                <h2 className='text-black'>Imágenes seleccionadas:</h2>
                 <ul>
                     {selectedFiles.map((file, index) => (
-                        <li key={index}>
+                        <li className='text-black' key={index}>
                             {file.name}
                             <button  className='bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded-md' onClick={() => handleRemoveImage(index)}>Eliminar</button>
                         </li>

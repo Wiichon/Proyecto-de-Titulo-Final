@@ -88,7 +88,8 @@ function TablePage() {
   return (
     <div>
       <Changer />
-      <button onClick={() => setShowCases(!showCases)}>
+      <br />
+      <button className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded-md' onClick={() => setShowCases(!showCases)}>
         {showCases ? 'Mostrar Evidencias' : 'Mostrar Casos'}
       </button>
       <SimpleTable
