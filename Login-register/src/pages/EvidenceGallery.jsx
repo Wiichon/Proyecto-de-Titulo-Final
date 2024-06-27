@@ -12,7 +12,7 @@ function EvidenceGallery() {
     getEvidences();
   }, []);
 
-  //Obtener las imagenes
+  // Obtener las imágenes
   const fetchImages = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/images');
@@ -30,7 +30,7 @@ function EvidenceGallery() {
     setSelectedEvidenceId(evidenceId);
   };
 
-  //Eliminar imagenes
+  // Eliminar imágenes
   const handleDeleteImage = async (imageId, imageUrl) => {
     try {
       await axios.delete(`http://localhost:3000/api/images/${imageId}`, { data: { imageUrl } });
@@ -44,7 +44,8 @@ function EvidenceGallery() {
       console.error('Error al eliminar la imagen:', error);
     }
   };
-//Filtrar las imagenes por evidencia
+
+  // Filtrar las imágenes por evidencia
   const filteredImages = selectedEvidenceId !== null
     ? images.filter(image => image.evidenceId === selectedEvidenceId)
     : images;
@@ -62,27 +63,31 @@ function EvidenceGallery() {
           ))}
         </select>
       </div>
-      <div className="columns-3 ">
-        {filteredImages.map((image, index) => (
-          <div key={index} className="relative">
-            {image.imageUrls.map((url, idx) => (
-              <div key={idx} className="relative mb-4">
-                <img
-                  className="w-80 h-80 bg-slate-700 rounded-lg"
-                  src={`http://localhost:3000/${url}`}
-                  alt={`Evidence ${index + 1} - Image ${idx + 1}`}
-                />
-                <button
-                  className="absolute bottom-0 right-10 rounded-lg bg-red-500 text-white p-2"
-                  onClick={() => handleDeleteImage(image._id, url)}
-                >
-                  Eliminar
-                </button>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      {filteredImages.length === 0 ? (
+        <p className='text-red-500'>No se encontraron imágenes asociadas.</p>
+      ) : (
+        <div className="columns-3">
+          {filteredImages.map((image, index) => (
+            <div key={index} className="relative">
+              {image.imageUrls.map((url, idx) => (
+                <div key={idx} className="relative mb-4">
+                  <img
+                    className="w-80 h-80 bg-slate-700 rounded-lg"
+                    src={`http://localhost:3000/${url}`}
+                    alt={`Evidence ${index + 1} - Image ${idx + 1}`}
+                  />
+                  <button
+                    className="absolute bottom-0 right-10 rounded-lg bg-red-500 text-white p-2"
+                    onClick={() => handleDeleteImage(image._id, url)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

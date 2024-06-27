@@ -79,12 +79,12 @@ function SimpleTable({data,columns}) {
                 </tfoot>
             </table>
             
-            <button className='text-black' onClick={() => table.setPageIndex(0)}>Primer pagina</button>
-            <button className='text-black' onClick={() => table.previousPage}>Pagina Anterior</button>
-            <button className='text-black' onClick={() => table.nextPage()}>Pagina Siguiente</button>
-            <button className='text-black' onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Ultima pagina</button>
+            <button className='text-black left-1' onClick={() => table.setPageIndex(0)}>Primer pagina</button>
+            <button className='text-black left-1' onClick={() => table.previousPage}>Pagina Anterior</button>
+            <button className='text-black left-1' onClick={() => table.nextPage()}>Pagina Siguiente</button>
+            <button className='text-black left-1' onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Ultima pagina</button>
 
-            <CSVLink data={csvData} filename={'tasks.csv'} className="btn btn-primary mt-4 bg-blue-600 rounded">Exportar CSV</CSVLink>
+            <CSVLink data={csvData} filename={'tasks.csv'} className="btn btn-primary mt-4 bg-blue-600 rounded left-1">Exportar CSV</CSVLink>
         </div>
     );
 }

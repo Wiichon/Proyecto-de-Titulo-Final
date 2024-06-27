@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEvidences } from '../context/EvidencesContext';
 import Changer from '../components/Changer';
@@ -7,6 +7,7 @@ import Changer from '../components/Changer';
 function ImageUploader() {
     const { getEvidences, evidences } = useEvidences();
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [fileErrors, setFileErrors] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,7 +15,21 @@ function ImageUploader() {
     }, []);
 
     const handleFileChange = (e) => {
-        setSelectedFiles([...selectedFiles, ...e.target.files]);
+        const files = Array.from(e.target.files);
+        const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        const newSelectedFiles = [];
+        const newFileErrors = [];
+
+        files.forEach(file => {
+            if (validImageTypes.includes(file.type)) {
+                newSelectedFiles.push(file);
+            } else {
+                newFileErrors.push(file.name);
+            }
+        });
+
+        setSelectedFiles([...selectedFiles, ...newSelectedFiles]);
+        setFileErrors([...fileErrors, ...newFileErrors]);
     };
 
     const handleUpload = async () => {
@@ -22,13 +37,11 @@ function ImageUploader() {
     
         if (!selectedEvidenceId) {
             console.error('Por favor selecciona una evidencia antes de subir imágenes.');
-            
             return;
         }
     
         if (selectedFiles.length === 0) {
             console.error('No se han seleccionado imágenes para subir.');
-            
             return;
         }
     
@@ -61,6 +74,12 @@ function ImageUploader() {
         setSelectedFiles(updatedFiles);
     };
 
+    const handleRemoveError = (index) => {
+        const updatedErrors = [...fileErrors];
+        updatedErrors.splice(index, 1);
+        setFileErrors(updatedErrors);
+    };
+
     return (
         <div>
             <Changer/>
@@ -81,11 +100,25 @@ function ImageUploader() {
                     {selectedFiles.map((file, index) => (
                         <li className='text-black' key={index}>
                             {file.name}
-                            <button  className='bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded-md' onClick={() => handleRemoveImage(index)}>Eliminar</button>
+                            <button className='bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded-md' onClick={() => handleRemoveImage(index)}>Eliminar</button>
                         </li>
                     ))}
                 </ul>
             </div>
+            {/* Mostrar los errores de archivos no válidos */}
+            {fileErrors.length > 0 && (
+                <div className="text-red-500">
+                    <h2>Los siguientes archivos no son imágenes válidas:</h2>
+                    <ul>
+                        {fileErrors.map((error, index) => (
+                            <li key={index}>
+                                {error}
+                                <button className='bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded-md' onClick={() => handleRemoveError(index)}>Eliminar</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }
